@@ -6,7 +6,7 @@
 
 # Exported builds
 export.cfg
-export_presets.cfg   # optional — see note below
+export_presets.cfg
 build/
 *.exe
 *.pck
