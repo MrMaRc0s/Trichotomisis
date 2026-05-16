@@ -16,6 +16,7 @@ var _look := Vector2.ZERO
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	$SmoothCameraArm.add_excluded_object(self.get_rid())
 	
 func _physics_process(delta: float) -> void:
 	frame_camera_rotation()
