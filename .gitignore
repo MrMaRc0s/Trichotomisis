@@ -3,6 +3,7 @@
 
 # Godot 3 generated cache
 .import/
+*.import
 
 # Exported builds
 export.cfg
