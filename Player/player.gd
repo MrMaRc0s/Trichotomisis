@@ -50,9 +50,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			return
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			_look += -event.relative * mouse_sensitivity
+			
+	if rig.is_idle():
+		if event.is_action_pressed("attack"):
+			slash_attack()
 
 func get_movement_direction() -> Vector3:
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -71,3 +76,6 @@ func frame_camera_rotation() -> void:
 func look_toward_direction(direction: Vector3, delta: float) -> void:
 	var target_transform := rig_pivot.global_transform.looking_at(rig_pivot.global_position + direction, Vector3.UP, true)
 	rig_pivot.global_transform = rig_pivot.global_transform.interpolate_with(target_transform, 1.0-exp(-animation_decay * delta))
+	
+func slash_attack() -> void:
+	rig.travel("Slash")

@@ -39,12 +39,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="bridge" parent="." unique_id=1664781760 instance=ExtResource("2_7412j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2791524, 0.11875823, 3.6713877)
 
-[node name="Plane_009" parent="bridge" index="0" unique_id=1877532597]
+[node name="Plane_009" parent="bridge" index="0" unique_id=2067223457]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1902065e-05, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="bridge/Plane_009" index="0" unique_id=1799007082]
+[node name="StaticBody3D2" type="StaticBody3D" parent="bridge/Plane_009" index="0" unique_id=1799007082]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="bridge/Plane_009/StaticBody3D" unique_id=138192370]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="bridge/Plane_009/StaticBody3D" parent_id_path=PackedInt32Array(1664781760, 597674614) index="1" unique_id=138192370]
 shape = SubResource("ConcavePolygonShape3D_lg8yx")
 
 [editable path="bridge"]
