@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name Player
 
 
 const SPEED = 5.0
@@ -21,11 +22,15 @@ var _attack_direction := Vector3.ZERO
 @onready var rig_pivot: Node3D = $RigPivot
 @onready var rig: Node3D = $RigPivot/Rig
 @onready var attack_cast: RayCast3D = %AttackCast
+@onready var health_component: HealthComponent = $HealthComponent
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
+
 
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	$SmoothCameraArm.add_excluded_object(self.get_rid())
+	health_component.update_max_health(30)
 	
 func _physics_process(delta: float) -> void:
 	frame_camera_rotation()
@@ -107,3 +112,9 @@ func slash_attack() -> void:
 		_attack_direction = rig.global_basis * Vector3(0, 0, 1)
 	attack_cast.clear_exceptions()
 	
+
+
+func _on_health_component_defeat() -> void:
+	rig.travel("Defeat")
+	collision_shape_3d.disabled = true
+	set_physics_process(false)
