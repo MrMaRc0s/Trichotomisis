@@ -7,10 +7,14 @@ const JUMP_VELOCITY = 4.5
 # Stores the x/y direction the player is trying to look in
 var _look := Vector2.ZERO
 
+# Stores rge direction the player moves then attacking
+var _attack_direction := Vector3.ZERO
+
 @export var mouse_sensitivity : float = 0.00075
 @export var min_boundary : float = -60
 @export var max_boundary : float = 10
 @export var animation_decay : float = 20
+@export var attack_move_speed : float = 3
 
 @onready var horizontinal_pivot: Node3D = $HorizontinalPivot
 @onready var vertical_pivot: Node3D = $HorizontinalPivot/VerticalPivot
@@ -24,6 +28,13 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	frame_camera_rotation()
+
+	var direction := get_movement_direction()
+	
+	rig.update_animation_tree(direction)
+	
+	handle_idle_physics_frame(delta, direction)
+	handle_attacking_physics_frame(delta)
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -32,8 +43,13 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+	move_and_slide()
+	
+func handle_idle_physics_frame(delta: float, direction: Vector3) -> void:
+	if not rig.is_idle():
+		return
 
-	var direction := get_movement_direction()
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
@@ -41,9 +57,14 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-	rig.update_animation_tree(direction)
-	move_and_slide()
-
+	
+func handle_attacking_physics_frame(delta: float) -> void:
+	if not rig.is_attacking():
+		return
+	velocity.x = _attack_direction.x * attack_move_speed
+	velocity.z = _attack_direction.z * attack_move_speed
+	look_toward_direction(_attack_direction, delta)
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -79,3 +100,7 @@ func look_toward_direction(direction: Vector3, delta: float) -> void:
 	
 func slash_attack() -> void:
 	rig.travel("Slash")
+	_attack_direction = get_movement_direction()
+	if _attack_direction.is_zero_approx():
+		_attack_direction = rig.global_basis * Vector3(0, 0, 1)
+	

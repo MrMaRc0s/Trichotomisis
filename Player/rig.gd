@@ -22,3 +22,6 @@ func travel(animation_name: String) -> void:
 
 func is_idle() -> bool:
 	return playback.get_current_node() == "MoveSpace"
+
+func is_attacking() -> bool:
+	return playback.get_current_node() == "Slash"
