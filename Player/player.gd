@@ -15,6 +15,8 @@ var _look := Vector2.ZERO
 @onready var horizontinal_pivot: Node3D = $HorizontinalPivot
 @onready var vertical_pivot: Node3D = $HorizontinalPivot/VerticalPivot
 @onready var rig_pivot: Node3D = $RigPivot
+@onready var rig: Node3D = $RigPivot/Rig
+
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -39,7 +41,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	rig.update_animation_tree(direction)
 	move_and_slide()
 
 func _unhandled_input(event: InputEvent) -> void:
