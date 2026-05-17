@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dwss6xvli2j45" path="res://Player/player.tscn" id="1_xaaa8"]
 [ext_resource type="PackedScene" uid="uid://bjrr38opvjcgc" path="res://Assets/bridge.glb" id="2_7412j"]
+[ext_resource type="PackedScene" uid="uid://di2rqamkylkcv" path="res://Enemy/enemy.tscn" id="3_lg8yx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kv4ld"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -46,5 +47,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1902065e-05, 0)
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="bridge/Plane_009/StaticBody3D" parent_id_path=PackedInt32Array(1664781760, 597674614) index="1" unique_id=138192370]
 shape = SubResource("ConcavePolygonShape3D_lg8yx")
+
+[node name="Enemies" type="Node3D" parent="." unique_id=1028344323]
+
+[node name="Enemy" parent="Enemies" unique_id=2115261548 instance=ExtResource("3_lg8yx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.865702, 0.99999976, 0)
+
+[node name="Enemy2" parent="Enemies" unique_id=580131533 instance=ExtResource("3_lg8yx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.928386, 0.99999976, -1.5511432)
+
+[node name="Enemy3" parent="Enemies" unique_id=98191996 instance=ExtResource("3_lg8yx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.528997, 0.99999976, -3.2517009)
 
 [editable path="bridge"]
