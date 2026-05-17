@@ -52,6 +52,7 @@ shape = SubResource("ConcavePolygonShape3D_lg8yx")
 
 [node name="Enemy" parent="Enemies" unique_id=2115261548 instance=ExtResource("3_lg8yx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.865702, 0.99999976, 0)
+max_health = 40.0
 
 [node name="Enemy2" parent="Enemies" unique_id=580131533 instance=ExtResource("3_lg8yx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.928386, 0.99999976, -1.5511432)
