@@ -36,7 +36,7 @@ func is_attacking() -> bool:
 	return playback.get_current_node() == "Slash"
 	
 func is_heavy_attacking() -> bool:
-	return playback.get_current_node() == "Overhead"
+	return playback.get_current_node() in ["Overhead", "OverheadRecover"]
 
 func set_active_mesh(active_mesh: MeshInstance3D) -> void:
 	for child in skeleton_3d.get_children():
