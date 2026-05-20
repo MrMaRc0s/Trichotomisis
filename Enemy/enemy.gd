@@ -9,6 +9,7 @@ class_name Enemy
 @onready var player_detector: ShapeCast3D = $Rig/PlayerDetector
 @onready var area_attack: ShapeCast3D = $Rig/AreaAttack
 
+@onready var player : Player = get_tree().get_first_node_in_group("Player")
 
 func _ready() -> void:
 	rig.set_active_mesh(rig.villager_meshes.pick_random())
