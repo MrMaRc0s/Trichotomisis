@@ -23,7 +23,15 @@ class Ability:
 		ability_score += randi_range(2, 5)
 
 var level := 1
-var xp := 0
+var xp := 0:
+	set(value):
+		xp = value
+		var boundary = cubic_level_up()
+		
+		while xp > boundary:
+			xp -= boundary
+			level_up()
+			boundary = cubic_level_up()
 
 var strenght = Ability.new(2.0, 12.0) #extra damage
 var endurance = Ability.new(5.0, 25.0) #extra hp
@@ -48,4 +56,22 @@ func level_up() -> void:
 	endurance.increase_ability_score()
 	speed.increase_ability_score()
 	agility.increase_ability_score()
-	printt(strenght.ability_score, endurance.ability_score, speed.ability_score, agility.ability_score)
+	print("level up")
+	
+func percentage_level_up() -> int:
+	return int(50 * pow(1.2, level))
+	
+func cubic_level_up() -> int:
+	return int(50 + pow(level, 3))
+	
+#level percentage_xp_req cubic_xp_req
+# 1               60           51
+# 2               72           58
+# 3               86           77
+# 4              103          114
+# 5              124          175
+# 6              149          266
+# 7              179          393
+# 8              214          562
+# 9              257          779
+# 10             309         1050
