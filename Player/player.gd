@@ -12,11 +12,17 @@ var _look := Vector2.ZERO
 # Stores rge direction the player moves then attacking
 var _attack_direction := Vector3.ZERO
 
+@export_category("Animation")
+@export var animation_decay : float = 20
+@export var attack_move_speed : float = 3
+
+@export_category("Camera")
 @export var mouse_sensitivity : float = 0.00075
 @export var min_boundary : float = -60
 @export var max_boundary : float = 10
-@export var animation_decay : float = 20
-@export var attack_move_speed : float = 3
+
+@export_category("RPG Stats")
+@export var stats : CharacterStats
 
 @onready var horizontinal_pivot: Node3D = $HorizontinalPivot
 @onready var vertical_pivot: Node3D = $HorizontinalPivot/VerticalPivot
