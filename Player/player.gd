@@ -76,7 +76,7 @@ func handle_attacking_physics_frame(delta: float) -> void:
 	velocity.x = _attack_direction.x * attack_move_speed
 	velocity.z = _attack_direction.z * attack_move_speed
 	look_toward_direction(_attack_direction, delta)
-	attack_cast.deal_damage(base_damage + stats.get_base_strenght())
+	attack_cast.deal_damage(base_damage + stats.get_base_strenght(), stats.get_base_agility())
 	
 func handle_heavy_attacking_physics_frame() -> void:
 	if not rig.is_heavy_attacking():

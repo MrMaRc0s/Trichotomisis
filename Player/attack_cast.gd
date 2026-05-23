@@ -1,9 +1,11 @@
 extends RayCast3D
 
-func deal_damage(damage: float) -> void:
+func deal_damage(damage: float, crit_change: float) -> void:
 	if not is_colliding():
 		return
+		
+	var is_critical = randf() <= crit_change
 	var collider = get_collider()
 	if collider is Enemy:
-		collider.health_component.take_damage(damage)
+		collider.health_component.take_damage(damage, is_critical)
 		add_exception(collider)

@@ -3,4 +3,4 @@ func deal_damage(damage: float) -> void:
 	for collision_id in get_collision_count():
 		var collider = get_collider(collision_id)
 		if collider is Player or collider is Enemy:
-			collider.health_component.take_damage(damage)
+			collider.health_component.take_damage(damage, 0.0)
