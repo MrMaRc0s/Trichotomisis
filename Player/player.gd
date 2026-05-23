@@ -2,7 +2,6 @@ extends CharacterBody3D
 class_name Player
 
 
-const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const DECAY := 8.0
 
@@ -23,6 +22,7 @@ var _attack_direction := Vector3.ZERO
 
 @export_category("RPG Stats")
 @export var stats : CharacterStats
+@export var base_damage = 10.0
 
 @onready var horizontinal_pivot: Node3D = $HorizontinalPivot
 @onready var vertical_pivot: Node3D = $HorizontinalPivot/VerticalPivot
@@ -64,8 +64,8 @@ func handle_idle_physics_frame(delta: float, direction: Vector3) -> void:
 	if not rig.is_idle() and not rig.is_dashing():
 		return
 		
-	velocity.x = expenential_decay(velocity.x, direction.x * SPEED, DECAY, delta)
-	velocity.z = expenential_decay(velocity.z, direction.z * SPEED, DECAY, delta)
+	velocity.x = expenential_decay(velocity.x, direction.x * stats.get_base_speed(), DECAY, delta)
+	velocity.z = expenential_decay(velocity.z, direction.z * stats.get_base_speed(), DECAY, delta)
 
 	if direction:
 		look_toward_direction(direction, delta)
@@ -76,7 +76,7 @@ func handle_attacking_physics_frame(delta: float) -> void:
 	velocity.x = _attack_direction.x * attack_move_speed
 	velocity.z = _attack_direction.z * attack_move_speed
 	look_toward_direction(_attack_direction, delta)
-	attack_cast.deal_damage()
+	attack_cast.deal_damage(base_damage + stats.get_base_strenght())
 	
 func handle_heavy_attacking_physics_frame() -> void:
 	if not rig.is_heavy_attacking():
@@ -100,6 +100,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			slash_attack()
 		if event.is_action_pressed("heavy_attack"):
 			rig.travel("Overhead")
+			
+#	if event.is_action_pressed("debug_level_up"):
+#		stats.xp+=10000
 
 func get_movement_direction() -> Vector3:
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -135,7 +138,7 @@ func _on_health_component_defeat() -> void:
 
 
 func _on_rig_heavy_attack() -> void:
-	area_attack.deal_damage(50)
+	area_attack.deal_damage(base_damage*2 + stats.get_base_strenght())
 	
 func expenential_decay(a: float, b:float, decay: float, delta: float) -> float:
 	return b + (a - b) * exp(-decay * delta)
