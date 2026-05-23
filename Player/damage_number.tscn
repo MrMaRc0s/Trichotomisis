@@ -87,3 +87,4 @@ font_size = 64
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=903114713]
 libraries/ = SubResource("AnimationLibrary_txons")
+autoplay = &"Dissapear"
