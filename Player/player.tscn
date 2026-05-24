@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://briighmnl5do5" path="res://Player/attack_cast.gd" id="4_gwnis"]
 [ext_resource type="PackedScene" uid="uid://dqdhgp6u72f68" path="res://Player/area_attack.tscn" id="6_fhl08"]
 [ext_resource type="PackedScene" uid="uid://yl4s1hbltitg" path="res://Player/dash.tscn" id="7_vtle1"]
+[ext_resource type="PackedScene" uid="uid://dxniu6vhq4xqk" path="res://UserInterface/user_interface.tscn" id="9_00tjw"]
 
 [sub_resource type="Resource" id="Resource_00tjw"]
 script = ExtResource("2_od3ui")
@@ -185,6 +186,8 @@ collision_mask = 8
 [node name="Dash" parent="RigPivot" unique_id=2111722235 node_paths=PackedStringArray("player") instance=ExtResource("7_vtle1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09028256, 0)
 player = NodePath("../..")
+
+[node name="UserInterface" parent="." unique_id=1654963752 instance=ExtResource("9_00tjw")]
 
 [connection signal="defeat" from="HealthComponent" to="." method="_on_health_component_defeat"]
 [connection signal="heavy_attack" from="RigPivot/Rig" to="." method="_on_rig_heavy_attack"]
